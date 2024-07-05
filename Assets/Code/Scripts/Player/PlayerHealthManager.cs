@@ -6,7 +6,7 @@ public class HealthManager : MonoBehaviour
 {
     
     [SerializeField] GameObject[] hearts;
-    int hp;
+    public int hp;
 
     void Start()
     {
@@ -18,11 +18,11 @@ public class HealthManager : MonoBehaviour
     {
         if(hp <= 0){
             //SMERT
-            Destroy(this);
+            Destroy(transform.parent.gameObject);
         }
     }
 
-    void takeDamage(){
+    public void takeDamage(){
         hearts[hp - 1].SetActive(false);
         hp -= 1;
     }
