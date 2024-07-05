@@ -11,4 +11,10 @@ public class RotateAttackArea : MonoBehaviour
         Quaternion rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 10);
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.name == "Boss") {
+            other.GetComponent<Boss>().TakeDamage(1);   
+        }
+    }
 }

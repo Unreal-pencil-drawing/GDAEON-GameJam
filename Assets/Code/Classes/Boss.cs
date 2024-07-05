@@ -28,6 +28,7 @@ public class Boss : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider2D;
     private Vector3 scale;
+
     private void Awake()
     {
         _player = GameObject.Find("Player");
@@ -75,7 +76,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
     }
@@ -93,7 +93,9 @@ public class Boss : MonoBehaviour
     }
 
     private void Death() {
-
+        isDead = true;
+        scale = transform.localScale;
+        transform.localScale = new Vector3(scale.x, -scale.y, scale.z);
     }
 
     private void Dash() {
@@ -118,10 +120,14 @@ public class Boss : MonoBehaviour
 
     private void Update()
     {
-        UpdateTimers();
-        Move();
-        LocalScaleRotate();
-        distanceToPlayer = GetDictanceToPlayer();
+        if (health <= 0 && !isDead)
+            Death();
+        if (!isDead) {
+            UpdateTimers();
+            Move();
+            LocalScaleRotate();
+            distanceToPlayer = GetDictanceToPlayer();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

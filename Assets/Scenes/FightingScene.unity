@@ -217,8 +217,9 @@ GameObject:
   m_Component:
   - component: {fileID: 47437069}
   - component: {fileID: 47437071}
-  - component: {fileID: 47437070}
   - component: {fileID: 47437072}
+  - component: {fileID: 47437073}
+  - component: {fileID: 47437074}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
@@ -241,22 +242,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &47437070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47437068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2a64ba8d194655408404701e25d5d3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1873737575}
-  healthManager: {fileID: 451213497}
-  velocity: 0.02
-  hp: 0
 --- !u!212 &47437071
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -354,6 +339,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0699496, y: 2.667513}
   m_EdgeRadius: 0
+--- !u!50 &47437073
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47437068}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &47437074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47437068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d678ff7166ae19549a7a6015cac611ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 6
+  speed: 0.005
+  damage: 2
+  resistance_time: 1
+  dash_cooldown: 5
+  isResistance: 0
+  dash_coefficient: 15
+  distanceToPlayer: 0
 --- !u!1 &309658529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,9 +1568,9 @@ GameObject:
   - component: {fileID: 1873737569}
   - component: {fileID: 1873737573}
   - component: {fileID: 1873737572}
-  - component: {fileID: 1873737574}
-  - component: {fileID: 1873737575}
   - component: {fileID: 1873737576}
+  - component: {fileID: 1873737577}
+  - component: {fileID: 1873737578}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -1688,35 +1720,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1873737574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873737567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0019da479e03a1d41999d0caf26350e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1873737575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873737567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d13858d249a9d4bb5a8d4ea09d4100, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAction: 3
-  velocity: 0.07
-  dashCooldown: 3
-  maxhp: 6
-  damage: 10
 --- !u!95 &1873737576
 Animator:
   serializedVersion: 5
@@ -1738,6 +1741,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1873737577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873737567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d13858d249a9d4bb5a8d4ea09d4100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAction: 0
+  velocity: 0.07
+  dashCooldown: 3
+  maxhp: 6
+  damage: 1
+--- !u!114 &1873737578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873737567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0019da479e03a1d41999d0caf26350e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1954796158
 GameObject:
   m_ObjectHideFlags: 0
