@@ -30,7 +30,7 @@ public class Boss : MonoBehaviour
     private Vector3 scale;
     private void Awake()
     {
-        _player = GameObject.FindWithTag("Player");
+        _player = GameObject.Find("Player");
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         scale = transform.localScale;
@@ -125,7 +125,7 @@ public class Boss : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Player")) {
+        if (other.name == "Player") {
             other.GetComponentInChildren<HealthManager>().takeDamage();   
         }
     }
