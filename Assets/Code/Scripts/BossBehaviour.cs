@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
     
     [SerializeField] Player player;
-    [SerializeField] GameObject healthManager;
     [SerializeField] float velocity;
 
     Vector3 endPosition;
@@ -30,11 +27,7 @@ public class BossBehaviour : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision){
-        if(collision.gameObject.layer == 3){
-            Debug.Log("Hero collision");
-            healthManager.GetComponent<HealthManager>().takeDamage();
-        }else if(collision.gameObject.layer == 7 && player.GetComponent<Player>().currentAction == Player.Action.Attacking){
-            Debug.Log("Sword collision");
+        if(collision.gameObject.layer == 7 ){
             Debug.Log(player.GetComponent<Player>().damage);
             hp -= player.GetComponent<Player>().damage;
         }

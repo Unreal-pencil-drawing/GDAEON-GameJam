@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +5,9 @@ public class Player : MonoBehaviour
 {
     public enum Action{
         Running,
+        Casting,
         Attacking,
-        Dashing,
-        Idle
+        Idle,
     }
 
     public Action currentAction;
@@ -17,4 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float dashCooldown;
     [SerializeField] public float maxhp;
     [SerializeField] public int damage;
+    [SerializeField] public float AfterHitResistenceTime;
+
+    public List<Skill> skills;
 }
