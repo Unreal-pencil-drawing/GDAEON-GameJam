@@ -18,5 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] public int damage;
     [SerializeField] public float AfterHitResistenceTime;
 
-    public List<Skill> skills;
+    public List<Skill> baseSkills;
+    public List<Skill> passiveSkills;
+    public List<Skill> activeSkills;
 }

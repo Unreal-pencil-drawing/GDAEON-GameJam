@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class Dash : Skill
@@ -13,8 +12,9 @@ public class Dash : Skill
         title = "Dash";
         description = "Герой совершает быстрый рывок в выбранном направлении";   
         cooldown = 3;
-       
-        uisprite = Resources.Load<Sprite>("Sprites/Skills/dash");
+        active = true;
+
+        Instantiate(Resources.Load("Prefabs/DashUI"), Vector3.zero, Quaternion.identity, GameObject.Find("Skills Panel").transform);
 
         player = gameObject.GetComponent<Player>();
         rigitbody = gameObject.GetComponent<Rigidbody2D>();

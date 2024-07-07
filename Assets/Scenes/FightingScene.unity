@@ -1989,7 +1989,9 @@ MonoBehaviour:
   maxhp: 6
   damage: 10
   AfterHitResistenceTime: 3
-  skills: []
+  baseSkills: []
+  passiveSkills: []
+  activeSkills: []
 --- !u!95 &1873737576
 Animator:
   serializedVersion: 5
@@ -2037,10 +2039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0019da479e03a1d41999d0caf26350e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  top: 0
-  right: 0
-  down: 0
-  left: 0
   currentSkill: {fileID: 0}
 --- !u!114 &1873737581
 MonoBehaviour:
