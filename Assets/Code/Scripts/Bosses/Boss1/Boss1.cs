@@ -15,8 +15,8 @@ public class Boss1 : Boss
     private Vector2 direction;
     private List<BossSkill> _bossSkills = new List<BossSkill>{};
 
-    private float betweenSkillCooldown = 10f;
-    public float betweenSkillTimer = 0;
+    public float betweenSkillCooldown = 2f;
+    private float betweenSkillTimer = 0;
 
     /* #endregion */
     protected override void Awake()
