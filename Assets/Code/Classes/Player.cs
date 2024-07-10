@@ -18,7 +18,12 @@ public class Player : MonoBehaviour
     [SerializeField] public int damage;
     [SerializeField] public float AfterHitResistenceTime;
 
-    public List<Skill> baseSkills;
-    public List<Skill> passiveSkills;
-    public List<Skill> activeSkills;
+    public List<BaseSkill> baseSkills;
+    public List<PassiveSkill> passiveSkills;
+    public List<ActiveSkill> activeSkills;
+
+    void Awake(){
+        baseSkills.Add(gameObject.AddComponent<Run>());
+        GetComponent<Run>().Init();
+    }
 }

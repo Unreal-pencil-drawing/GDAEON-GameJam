@@ -130,11 +130,11 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    /*private void OnTriggerEnter2D(Collider2D other) {
         if (other.name == "Player") {
             other.GetComponentInChildren<HealthManager>().takeDamage();   
         }
-    }
+    }*/
 
     private void LocalScaleRotate() {
         if (_player.transform.position.x > transform.position.x) 
