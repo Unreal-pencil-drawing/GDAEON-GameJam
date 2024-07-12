@@ -13,19 +13,11 @@ public abstract class BossSkill : MonoBehaviour
 
     public bool isSkillEnd { get; protected set; }
 
-    public virtual void Init(Boss boss, float cooldown) {
-        cooldownTimer = cooldown;
-    }
+    public abstract void Init(Boss boss, float cooldown);
 
-    public virtual bool IsTriggerCondition() {
-        if (IsOnCooldown()) {
-            return false;
-        }
-        return true;
-    }
+    public virtual bool IsTriggerCondition() => !IsOnCooldown();
 
     public virtual void Cast() {
-        cooldownTimer = cooldown;
         isSkillEnd = false;
     }
 

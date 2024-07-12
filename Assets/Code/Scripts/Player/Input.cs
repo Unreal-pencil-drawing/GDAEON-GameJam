@@ -16,7 +16,7 @@ public class Move : MonoBehaviour
     void Update(){
         if (player.currentAction == Player.Action.Running || player.currentAction == Player.Action.Idle){
             foreach(Skill skill in player.activeSkills){
-                Debug.Log(skill); 
+                //Debug.Log(skill); 
                 if(skill.Detect()) currentSkill = skill;
                 break;
             }

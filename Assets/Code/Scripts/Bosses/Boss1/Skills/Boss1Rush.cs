@@ -7,11 +7,13 @@ public class Boss1Rush : BossSkill
     public float triggerDistance = 5f;
     public float targetDistance = 3f;
     public float delayTime = 0.5f;
+    public float rotateCofficient = 1f;
     private Boss1 _boss;
     private float elapsedTime = 0;
-    private Vector2 direction;
+    private Vector3 direction;
     private float velocity = 20;
-    private Vector2 targetPosition;
+    private Vector3 targetPosition;
+    private bool isFindTargetPosition;
 
     public override void Init(Boss boss, float cooldown)
     {
@@ -24,7 +26,7 @@ public class Boss1Rush : BossSkill
     {
         if (base.IsTriggerCondition())
         {
-            return _boss.GetDictanceToPlayer() > triggerDistance;
+            return _boss.GetDistanceToPlayer() > triggerDistance;
         }
         return false;
     }
@@ -32,21 +34,27 @@ public class Boss1Rush : BossSkill
     public override void Cast()
     {
         base.Cast();
-        targetPosition = (Vector2)(_boss.GetPlayerPosition() - _boss.transform.position);
-        targetPosition = targetPosition.normalized;
         elapsedTime = 0f;
+        isFindTargetPosition = false;
     }
 
     public override void UpdateChanges()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime < delayTime) 
+        if (elapsedTime < delayTime)
             return;
-        _boss.GetRigidbody2D().velocity = (elapsedTime - delayTime) * velocity * targetPosition;
-        if (_boss.GetDictanceToPlayer() < Math.Min(triggerDistance, targetDistance) || elapsedTime > 1f + delayTime)
-        {
-            _boss.isResistance = false;
-            isSkillEnd = true;
+        else {
+            if (!isFindTargetPosition) {
+                targetPosition = _boss.GetPlayerPosition();
+                isFindTargetPosition = true;
+            }
+        }
+
+        direction = _boss.GetPlayerPosition() - targetPosition;
+        direction = targetPosition - _boss.transform.position + (2f - elapsedTime + delayTime) * rotateCofficient * direction;
+        _boss._rigidbody2D.velocity = (elapsedTime - delayTime) * velocity * direction.normalized;
+        if (elapsedTime > 2f + delayTime) {
+            EndSkill();
         }
     }
 }

@@ -18,7 +18,7 @@ public class Boss1Dash : BossSkill
 
     public override void Init(Boss boss, float cooldown)
     {
-        _boss = (Boss1)boss;
+        _boss = (Boss1) boss;
         this.cooldown = cooldown;
         cooldownTimer = cooldown;
     }
@@ -27,7 +27,7 @@ public class Boss1Dash : BossSkill
     {
         if (base.IsTriggerCondition())
         {
-            return _boss.GetDictanceToPlayer() > triggerDistance;
+            return _boss.GetDistanceToPlayer() > triggerDistance;
         }
         return false;
     }
@@ -35,17 +35,18 @@ public class Boss1Dash : BossSkill
     public override void Cast()
     {
         base.Cast();
+        _boss._boxCollider2D.enabled = false;
     }
 
     public override void UpdateChanges()
     {
         elapsedTime += Time.deltaTime;
         direction = (Vector2)(_boss.GetPlayerPosition() - _boss.transform.position);
-        _boss.GetRigidbody2D().velocity = direction.normalized * velocity;
+        _boss._rigidbody2D.velocity = direction.normalized * velocity;
         //if (elapsedTime >= 0.5f)
-        if (_boss.GetDictanceToPlayer() < 4.0f)
+        if (_boss.GetDistanceToPlayer() < 4.0f)
         {
-            _boss.isResistance = false;
+            _boss._boxCollider2D.enabled = true;
             EndSkill();
         }
     }

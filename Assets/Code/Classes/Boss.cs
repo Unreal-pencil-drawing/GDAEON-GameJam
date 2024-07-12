@@ -5,36 +5,27 @@ using UnityEngine;
 
 public abstract class Boss : MonoBehaviour
 {
-    
     /* #region Variables */
     public float health;
     public float speed;
-    public float resistanceTime = 1;
-    public bool isResistance;
     // Внутренние переменные
-    protected float resistanceTimer;
     protected bool isDead;
     public Player _player;
     protected Vector3 scale;
-    protected Rigidbody2D _rigidbody2D;
-    protected BoxCollider2D _boxCollider2D;
-    protected Vector2 theorethicalVelocity;
+    public Rigidbody2D _rigidbody2D { get; protected set; }
+    public BoxCollider2D _boxCollider2D { get; protected set; }
+    public SpriteRenderer _spriteRenderer { get; protected set; }
+    protected Vector2 velocity;
     protected bool isAnySkillActive = false;
     protected BossSkill activeSkill = null;
-
-    public float distanceToPlayer;
+    protected List<BossSkill> _bossSkills = new List<BossSkill>{};
     /* #endregion */
 
-    public virtual Vector2 GetTeorethicalDirection() => theorethicalVelocity;
-
-    public virtual BoxCollider2D GetBoxCollider2D() {
-        return _boxCollider2D;
-    }
-    public virtual Rigidbody2D GetRigidbody2D() {
-        return _rigidbody2D;
+    public virtual Vector3 GetPlayerPosition() {
+        return _player.transform.position;
     }
 
-    public virtual float GetDictanceToPlayer(){
+    public virtual float GetDistanceToPlayer(){
         if (_player)
             return Vector3.Distance(_player.transform.position, transform.position);
         return -1f;
@@ -43,17 +34,49 @@ public abstract class Boss : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         scale = transform.localScale;
     }
     protected abstract void Start();
     protected abstract void Update();
+
+    protected virtual void CastSkill(BossSkill skill) {
+        Debug.Log(this + " cast: " + skill.GetType());
+        skill.Cast();
+        activeSkill = skill;
+        isAnySkillActive = true;
+    }
+
     protected virtual void Death()
     {
         isDead = true;
         scale = transform.localScale;
         transform.localScale = new Vector3(scale.x, -scale.y, scale.z);
     }
-    public virtual void TakeDamage(float damageValue) => health -= damageValue;
+
+    protected virtual void Move()
+    {
+        _rigidbody2D.velocity = new Vector2(0, 0);
+    }
+
+    protected virtual void TakeDamage() {
+        Debug.Log(this + "get hit");
+        health -= _player.damage;
+        OnTakeDamage();
+    }
+
+    protected IEnumerator DamageAnimation() {
+        _spriteRenderer.color = new Color(1f, 0, 0, 1f);
+        yield return new WaitForSeconds(0.2f);  
+        _spriteRenderer.color = Color.white;
+    }
+
+    protected virtual void OnTakeDamage() {
+        StartCoroutine(DamageAnimation());
+    }
+
+    protected abstract void OnTriggerEnter2D(Collider2D other);
+
     protected virtual void LocalScaleRotate() {
         if (_player.transform.position.x > transform.position.x) 
             transform.localScale = new Vector3(scale.x, scale.y, scale.z);
