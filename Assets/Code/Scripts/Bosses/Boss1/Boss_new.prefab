@@ -146,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.1399405, y: 0.022095919}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.77, y: 4.5}
+  m_Size: {x: 1.4589801, y: 3.2479024}
   m_EdgeRadius: 0
 --- !u!114 &8319315703140771631
 MonoBehaviour:
@@ -174,5 +174,4 @@ MonoBehaviour:
   health: 100
   speed: 3
   _player: {fileID: 0}
-  distanceToPlayer: 0
   betweenSkillCooldown: 2

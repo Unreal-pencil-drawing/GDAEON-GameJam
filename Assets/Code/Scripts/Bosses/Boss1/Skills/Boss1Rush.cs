@@ -51,9 +51,9 @@ public class Boss1Rush : BossSkill
         }
 
         direction = _boss.GetPlayerPosition() - targetPosition;
-        direction = targetPosition - _boss.transform.position + (2f - elapsedTime + delayTime) * rotateCofficient * direction;
-        _boss._rigidbody2D.velocity = (elapsedTime - delayTime) * velocity * direction.normalized;
-        if (elapsedTime > 2f + delayTime) {
+        direction = targetPosition - _boss.transform.position + (2.5f + delayTime - elapsedTime) * rotateCofficient * direction;
+        _boss._rigidbody2D.velocity = Math.Min(elapsedTime - delayTime, 1) * velocity * direction.normalized;
+        if (elapsedTime > 2f + delayTime || _boss.GetDistanceToPlayer() < 3f) {
             EndSkill();
         }
     }

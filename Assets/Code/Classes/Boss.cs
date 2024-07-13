@@ -49,6 +49,7 @@ public abstract class Boss : MonoBehaviour
 
     protected virtual void Death()
     {
+        _rigidbody2D.velocity = new Vector2(0, 0);
         isDead = true;
         scale = transform.localScale;
         transform.localScale = new Vector3(scale.x, -scale.y, scale.z);

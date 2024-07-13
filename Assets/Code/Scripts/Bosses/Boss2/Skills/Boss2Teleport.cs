@@ -26,14 +26,16 @@ public class Boss2Teleport : BossSkill
         position = _boss.transform.position;
         _boss._rigidbody2D.velocity = new Vector2(0, 0);
         isDown = false;
+        _boss._spriteRenderer.sprite = _boss.castSprite;
         StartCoroutine(TeleportUp());
     }
 
     public override bool IsTriggerCondition() => 
         base.IsTriggerCondition() && (_boss.GetDistanceToClosestArenaPoint() < 3.5f || _boss.GetDistanceToPlayer() < 3.5f);
-
+    
     private IEnumerator TeleportUp() {
         yield return new WaitForSeconds(0.5f);
+        _boss._spriteRenderer.sprite = _boss.sprite;
         _boss._boxCollider2D.enabled = false;
         velocity = new Vector2(0, 100);
         yield return new WaitForSeconds(0.5f);
@@ -61,7 +63,7 @@ public class Boss2Teleport : BossSkill
     public override void UpdateChanges() {
         _boss._rigidbody2D.velocity = velocity;
         if (isDown) {
-            _boss.transform.position = Vector2.MoveTowards(_boss.transform.position, new Vector2(0, 0), 100*Time.deltaTime);
+            _boss.transform.position = Vector2.MoveTowards(_boss.transform.position, new Vector2(0, _boss._boxCollider2D.size.y/2), 100*Time.deltaTime);
         }
     }
 }

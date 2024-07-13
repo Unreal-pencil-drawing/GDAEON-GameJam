@@ -28,6 +28,8 @@ public class Boss2 : Boss
     private float temp;
     private Vector2 defaultVector = new Vector2(-1, 0);
     public float angle;
+    public Sprite castSprite;
+    public Sprite sprite;
 
     /* #endregion */
 
